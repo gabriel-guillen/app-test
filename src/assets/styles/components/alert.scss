@@ -1,0 +1,29 @@
+@use '../utils' as *;
+
+.alert-overlay {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  z-index: 1000;
+}
+
+.alert-modal {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  min-width: 240px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 10px;
+
+  &.success {
+    border-left: 6px solid $green;
+  }
+
+  &.error {
+    border-left: 6px solid $red;
+  }
+}

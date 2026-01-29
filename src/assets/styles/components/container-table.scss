@@ -1,0 +1,56 @@
+@use '../utils' as *;
+
+.container-buttons {
+  width: 100%;
+  max-width: 1200px;
+  min-width: 375px;
+  margin: 100px auto 0 auto;
+  display: flex;
+
+  @media (max-width: 768px) {
+    margin: 40px auto 20px;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 20px;
+  }
+
+  input {
+    border-radius: $border-radius-input;
+    border: 1px solid $gray-dark;
+    min-width: 150px;
+    width: 244px;
+    height: 40px;
+    text-indent: 10px;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+
+    &::placeholder {
+      color: $gray-dark;
+    }
+  }
+
+  button {
+    margin-left: auto;
+
+    @media (max-width: 768px) {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+}
+
+.container-table {
+  width: 100%;
+  max-width: 1160px;
+  min-width: 375px;
+  margin: 10px auto 0 auto;
+  padding: 20px;
+  background-color: $white;
+  font-size: 12px;
+
+  @media (max-width: 768px) {
+    padding: 0 10px;
+  }
+}

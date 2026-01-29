@@ -1,0 +1,27 @@
+@use '../utils' as *;
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  min-width: 375px;
+  margin: 50px auto 0 auto;
+  padding: 0 10px;
+  background-color: $white;
+
+  @media (max-width: 768px) {
+    margin: 20px auto;
+    width: 95%;
+  }
+
+  h1 {
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  hr {
+    border: none;
+    margin: 0;
+    height: 1px;
+    background-color: $gray-dark;
+  }
+}

@@ -1,0 +1,118 @@
+<div class="container-buttons">
+  <input type="text" placeholder="Search..." (input)="onSearchInput($event)" [class.skeleton]="isLoading()" [disabled]="isLoading()">
+  <button class="btn secondary" (click)="navigateToForm()" [class.skeleton]="isLoading()" [disabled]="isLoading()">
+    @if (!isLoading()) {
+      <span>Agregar</span>
+    }
+  </button>
+</div>
+<div class="container-table">
+  <div class="table-all-content">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th class="th-center">Logo</th>
+          <th>Nombre del Producto</th>
+          <th>Descripción <span class="icon-svg"></span></th>
+          <th>Fecha de liberación <span class="icon-svg"></span></th>
+          <th>Fecha de reestructuración <span class="icon-svg"></span></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (isLoading()) {
+          <!-- Skeleton Loader -->
+          @for (skeleton of skeletonRows; track $index) {
+            <tr class="skeleton-row skeleton-table">
+              <td class="td-center skeleton-cell">
+                <div class="skeleton skeleton-content skeleton-avatar"></div>
+              </td>
+              <td class="td-center skeleton-cell">
+                <div class="skeleton skeleton-content skeleton-text-medium"></div>
+              </td>
+              <td class="td-center skeleton-cell">
+                <div class="skeleton skeleton-content skeleton-text-long"></div>
+              </td>
+              <td class="td-center skeleton-cell">
+                <div class="skeleton skeleton-content skeleton-text-short"></div>
+              </td>
+              <td class="td-center skeleton-cell">
+                <div class="skeleton skeleton-content skeleton-text-short"></div>
+              </td>
+              <td class="skeleton-cell">
+                <div class="skeleton skeleton-content skeleton-button"></div>
+              </td>
+            </tr>
+          }
+        } @else {
+          <!-- Datos reales -->
+          @for (product of pagedProducts; track product.id) {
+            <tr>
+              <td class="td-center">
+                  @if (!product.logo) {
+                    <span class="icon-img"></span>
+                  } @else {
+                    <img class="icon-img-1" [src]="product.logo" alt="Logo"/>
+                  }
+              </td>
+              <td class="td-center">{{ product.name }}</td>
+              <td class="td-center">{{ product.description }}</td>
+              <td class="td-center">{{ product.date_release | date:'dd/MM/yyyy' }}</td>
+              <td class="td-center">{{ product.date_revision | date:'dd/MM/yyyy' }}</td>
+              <td>
+                <div class="dropdown">
+                  <button class="button-icon"></button>
+                  <div class="dropdown-content">
+                    <button (click)="editProduct(product)">Actualizar</button>
+                    <button (click)="openDeleteModal(product)">Eliminar</button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>    
+  </div>
+  <div class="horizontal-scroll-bar">
+    <div class="horizontal-porcentaje"></div>
+  </div>
+  <div class="separator"></div>
+  <div class="footer-table">
+    @if (!isLoading()) {
+      <span>{{ products.length }} Resultados</span>
+      <select class="page-selector" (change)="updateSelectedOption($event)">
+        <option [selected]="selectedOption() === 5" value="5">5</option>
+        <option [selected]="selectedOption() === 10" value="10">10</option>
+        <option [selected]="selectedOption() === 20" value="20">20</option>
+      </select>
+    } @else {
+      <div class="skeleton skeleton-content skeleton-text-short" style="height: 20px; width: 120px;"></div>
+      <div class="skeleton skeleton-content" style="height: 32px; width: 60px; border-radius: 4px;"></div>
+    }
+  </div>
+</div>
+
+
+@if (deleteModalVisible) {
+  <div class="modal-overlay">
+    <div class="modal-container">
+      <p>¿Estás seguro de eliminar el producto {{ productToDelete?.name }}?</p>
+      <br>
+      <br>
+      <div class="separator overview"></div>
+      <div class="modal-buttons">
+        <button class="btn primary btn-all-w" (click)="closeDeleteModal()">Cancelar</button>
+        <button class="btn secondary btn-all-w" (click)="confirmDelete()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (alertMessage) {
+  <div class="alert-overlay">
+    <div class="alert-modal" [ngClass]="{'success': alertType === 'success', 'error': alertType === 'error'}">
+      {{ alertMessage }}
+    </div>
+  </div>
+}

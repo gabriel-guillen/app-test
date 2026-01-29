@@ -1,0 +1,68 @@
+@use '../utils' as *;
+
+.custom-input {
+  display: flex;
+  flex-direction: column;
+  width: 55%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
+  .label-input {
+    font-weight: 900;
+    padding-bottom: 5px;
+  }
+
+  input {
+    border-radius: $border-radius-input;
+    border: 1px solid $gray-dark;
+    min-width: 150px;
+    width: 244px;
+    height: 40px;
+    text-indent: 10px;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+
+    &:disabled {
+      filter: opacity(0.5);
+    }
+
+    &::placeholder{
+        color: $gray-dark;
+    }
+  }
+
+  &:disabled+label {
+    filter: opacity(0.5);
+  }
+
+  &.invalid {
+    input{
+        border: 1px solid $red-dark;
+    }
+  }
+
+  .msg-input-error {
+    color: $red-dark;
+    padding-top: 5px;
+    font-size: 12px;
+  }
+}
+
+.row-input {
+  display: flex;
+  padding-top: 15px;
+  padding-left: 40px;
+  padding-right: 40px;
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 10px;
+  }
+}

@@ -1,0 +1,139 @@
+<div class="container">
+  @if (isLoading()) {
+    <div class="form-skeleton">
+      <div class="skeleton skeleton-title"></div>
+      <div class="skeleton skeleton-hr"></div>
+
+      <div class="skeleton-row">
+        <div class="skeleton-input-group">
+          <div class="skeleton skeleton-label"></div>
+          <div class="skeleton skeleton-input"></div>
+        </div>
+        <div class="skeleton-input-group">
+          <div class="skeleton skeleton-label"></div>
+          <div class="skeleton skeleton-input"></div>
+        </div>
+      </div>
+
+      <div class="skeleton-row">
+        <div class="skeleton-input-group">
+          <div class="skeleton skeleton-label"></div>
+          <div class="skeleton skeleton-input"></div>
+        </div>
+        <div class="skeleton-input-group">
+          <div class="skeleton skeleton-label"></div>
+          <div class="skeleton skeleton-input"></div>
+        </div>
+      </div>
+
+      <div class="skeleton-row">
+        <div class="skeleton-input-group">
+          <div class="skeleton skeleton-label"></div>
+          <div class="skeleton skeleton-input"></div>
+        </div>
+        <div class="skeleton-input-group">
+          <div class="skeleton skeleton-label"></div>
+          <div class="skeleton skeleton-input"></div>
+        </div>
+      </div>
+
+      <div class="skeleton-buttons">
+        <div class="skeleton skeleton-btn"></div>
+        <div class="skeleton skeleton-btn"></div>
+      </div>
+    </div>
+  }
+
+  @if (!isLoading()) {
+    <div>
+      <h1>Formulario de Registro</h1>
+      <hr />
+      @if (alertMessage) {
+        <div class="alert-overlay">
+          <div
+            class="alert-modal"
+            [ngClass]="{
+              success: alertType() === 'success',
+              error: alertType() === 'error',
+            }"
+          >
+            {{ alertMessage }}
+          </div>
+        </div>
+      }
+      <form [formGroup]="productDataForm" (ngSubmit)="onSubmit()">
+        <div class="row-input">
+          <shared-input
+            [control]="getFormControl('id')"
+            inputLabel="ID"
+            placeholder="Identificador"
+            [class.skeleton-input-wrapper]="isSubmitting()"
+          />
+          <shared-input
+            [control]="getFormControl('name')"
+            inputLabel="Nombre"
+            placeholder="Tarjeta de Crédito"
+            [class.skeleton-input-wrapper]="isSubmitting()"
+          />
+        </div>
+        <div class="row-input">
+          <shared-input
+            [control]="getFormControl('description')"
+            inputLabel="Descripción"
+            placeholder="Descripción de la tarjeta"
+            [class.skeleton-input-wrapper]="isSubmitting()"
+          />
+          <shared-input
+            [control]="getFormControl('logo')"
+            inputLabel="Logo"
+            placeholder="Logo de la tarjeta"
+            [class.skeleton-input-wrapper]="isSubmitting()"
+          />
+        </div>
+        <div class="row-input">
+          <shared-input
+            [control]="getFormControl('date_release')"
+            inputLabel="Fecha Liberación"
+            placeholder="DD/MM/YYYY"
+            [class.skeleton-input-wrapper]="isSubmitting()"
+          />
+          <shared-input
+            [control]="getFormControl('date_revision')"
+            inputLabel="Fecha Revisión"
+            placeholder="DD/MM/YYYY"
+            [class.skeleton-input-wrapper]="isSubmitting()"
+          />
+        </div>
+        <div class="buttons">
+          <button
+            class="btn primary"
+            (click)="resetFormData()"
+            type="reset"
+            [disabled]="isSubmitting()"
+            [class.skeleton]="isSubmitting()"
+          >
+          @if (!isSubmitting()){
+            <span>Reiniciar</span>
+          }
+          </button>
+          <button
+            class="btn secondary"
+            type="submit"
+            [disabled]="isSubmitting()"
+            [class.skeleton]="isSubmitting()"
+          >
+          @if (!isSubmitting()) {
+            <span>{{
+              isUpdateMode() ? "Actualizar" : "Enviar"
+            }}</span>
+          } @else {
+            <span>{{
+              isUpdateMode() ? "Actualizando..." : "Enviando..."
+            }}</span>
+          }
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+</div>

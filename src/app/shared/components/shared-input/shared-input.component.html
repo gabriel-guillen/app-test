@@ -1,0 +1,94 @@
+@if (control(); as control){
+  <div class="custom-input" [ngClass]="{
+    invalid: 
+      control.touched &&
+        (control.errors?.['required'] ||
+          control.errors?.['min'] ||
+          control.errors?.['max'] ||
+          control.errors?.['maxAll'] ||
+          control.errors?.['pattern'] ||
+          control.errors?.['minlength'] ||
+          control.errors?.['maxlength'] ||
+          control.errors?.['invalidDate'] ||
+          control.errors?.['invalidId']
+        ),
+  }">
+    <label for="" class="label-input">{{ inputLabel() }}</label>
+    <input
+      [type]="type()"
+      required=""
+      [placeholder]="placeholder()"
+      [formControl]="control"
+      (keypress)="eventKeyPress($event)"
+      (keydown)="eventKeyDown($event)"
+      (input)="eventInput($event)"
+    />
+    @if (control.touched && control.invalid) {
+      @if (control.errors?.[validations.REQUIRED]) {
+        <div class="msg-input-error">            
+            <span> 
+              Este campo es requerido!
+            </span>
+        </div>
+      }
+      @if (control.errors?.[validations.MIN]) {
+        <div class="msg-input-error">
+            <span>
+              Ingrese correctamente el valor
+            </span>            
+        </div>
+      }
+      @if (control.errors?.[validations.MINLENGTH]) {
+        <div class="msg-input-error">           
+            <span>
+              Mínimo debe de ingresar:                 
+              {{ control.errors?.[validations.MINLENGTH]?.requiredLength }} caracteres
+            </span>            
+        </div>
+      }
+      @if (control.errors?.[validations.MAX]) {
+        <div class="msg-input-error">
+            <span>
+              Sobrepasó el máximo permitido
+            </span>
+        </div>
+      }
+      @if (control.errors?.[validations.MAX_ALL]?.maxAllowed > 0) {
+        <div class="msg-input-error">
+          <span>
+            Sobrepasó el monto máximo
+          </span>
+        </div>
+      }
+      @if (control.errors?.[validations.MAXLENGTH]) {
+        <div class="msg-input-error">
+            <span>
+              Máximo debe de ingresar:
+              {{ control.errors?.[validations.MAXLENGTH]?.requiredLength }} caracteres
+            </span>            
+        </div>
+      }
+      @if (control.errors?.[validations.PATTERN]){
+        <div class="msg-input-error">
+          <span>
+            EL formato debe de ser dd/mm/yyyy
+          </span>            
+      </div>
+      }
+      @if (control.errors?.[validations.CUSTOM_DATE_ERROR]){
+        <div class="msg-input-error">
+          <span>
+            La fecha debe ser igual o mayor a la fecha actual
+          </span>            
+      </div>
+      }
+      @if (control.errors?.[validations.CUSTOM_ID_ERROR]){
+        <div class="msg-input-error">
+          <span>
+            El ID ya existe!
+          </span>            
+      </div>
+      }
+    }
+  </div>
+}

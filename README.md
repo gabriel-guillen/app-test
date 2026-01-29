@@ -76,4 +76,3 @@ Variables de entorno:
 API_URL='http://localhost:3002' <br/>
 NODE_ENV='DEV' <br/>
 crear el archivo .env para ejecutar la aplicación con npm run start
->>>>>>> 67784ca995b06b8f487f331f660335d9074f6d20
